@@ -1,0 +1,61 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>space invaders</title>
+  <script src="js/ship.js"></script>
+  <script src="js/sketch.js"></script>
+  <script src="js/drop.js"></script>
+  <script src="js/invader.js"></script>
+  <script src="p5/p5.min.js"></script>
+  <script src="p5/addons/p5.dom.min.js"></script>
+  <script src="p5/addons/p5.sound.min.js"></script>
+
+  <style>
+    #canvasholder{
+      justify-content: center;
+      display: inline-block;
+    }
+    .side{
+      width:25%;
+      color: white;
+      
+    }
+    #container{
+      display: flex;
+      justify-content: center;
+      width:90%;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 50px;;
+    }
+    body{
+      background-image: url("space.jpg");
+    }
+    h1{
+      text-align: center;
+      color:white; 
+    }
+  </style>
+</head>
+<body> 
+  
+    
+  <h1>SPACE INVADERS</h1>
+ <div id = "container">
+  <div class = "side">
+      <button onclick="starting()">click or press e to start/stop</button>
+      <p id ="pause2"> move by using the arrow keys, fire by pressing f</p>
+      <p id ="startend"> press e to start the game</p>
+      <p id="lives"></p> 
+      <p id="level"></p>
+   </div>
+  <div id ="canvasholder">
+    <h1 id ="pause">the game is not started or has ended</h1>
+  </div>
+  <div class = "side"> </div>
+</div>
+ 
+</body>
+</html>
