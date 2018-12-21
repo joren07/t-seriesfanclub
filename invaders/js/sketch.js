@@ -12,17 +12,13 @@ function starting() {
   if (start ==false){
     start = true;
     document.getElementById("pause").innerHTML = "";
-    document.getElementById("pause2").innerHTML = "";
     document.getElementById("startend").innerHTML = " press e to end the game";
   }else {
     start = false;
     setup();
-    removebullets();
-    removeAliens();
-    life= 3;
-    level =1;
+    life = 3;
+    level = 1;
     document.getElementById("pause").innerHTML = "the game is not started or has ended";
-    document.getElementById("pause2").innerHTML = " move by using the arrow keys, fire by pressing f";
     document.getElementById("startend").innerHTML = " press e to start the game";
     document.getElementById("lives").innerHTML = "";
     document.getElementById("level").innerHTML = "";
@@ -49,6 +45,8 @@ function setup() {
   let canvas = createCanvas(700, 450);
   canvas.parent('canvasholder');
   ship = new Ship();
+  removebullets();
+  removeAliens();
   createInvaders(5, 1);
 
 }
@@ -179,7 +177,9 @@ function keyReleased() {
 }
 function keyPressed() {
   if (key === 'e')  {
+    console.log(invaders.length);
     starting();
+    
   }
   if (key === 'f')  {
     var drop = new Drop(ship.x, height-20);
@@ -191,4 +191,3 @@ function keyPressed() {
     ship.setDir(-1);
   }
 }
-
