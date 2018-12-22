@@ -1,9 +1,9 @@
 function invader(x, y) {
-
+  this.color = 'blue';
 
   this.x = x;
   this.y = y;
-  this.r = 15;
+  this.r = 14;
 
   this.xdir = 1;
 
@@ -13,7 +13,7 @@ function invader(x, y) {
 
   this.shiftDown = function() {
     this.xdir *= -1 ;
-    this.y += 15;
+    this.y += 20;
   }
 
   this.move = function() {
@@ -22,7 +22,7 @@ function invader(x, y) {
 
   this.show = function() {
     noStroke();
-    fill('blue');
+    fill(this.color);
     ellipse(this.x, this.y, this.r*2, this.r*2);
   }
 

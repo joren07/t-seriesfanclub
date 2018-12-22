@@ -17,6 +17,6 @@ function Ship() {
 
   this.move = function(dir) {
     this.x = constrain(this.x,10,690);
-    this.x += this.xdir*5;     
+    this.x += this.xdir*4;     
   }
 }

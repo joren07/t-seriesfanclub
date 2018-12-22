@@ -34,20 +34,20 @@ function createInvaders(length, height){
   let jump = 0
   for (let j = 0; j < height ; j ++){
     for (var i = 0; i < length; i++) {
-      invaders[jump + i] = new invader(i*50, 50 + (j*50));
-      invaders[jump + i].xdir = level/2+1;
+      invaders[jump + i] = new invader(i*45, 45 + (j*40));
+      invaders[jump + i].xdir = level/3+1;
       }
       jump += length;
     }
   }
 
 function setup() {
-  let canvas = createCanvas(700, 450);
+  let canvas = createCanvas(700, 520);
   canvas.parent('canvasholder');
   ship = new Ship();
   removebullets();
   removeAliens();
-  createInvaders(5, 1);
+  createInvaders(4, 1);
 
 }
 function removebullets(){
@@ -60,13 +60,15 @@ function removebullets(){
 }
 
 function levelup(){
-  if(level < 5) {
+  if(level < 10) {
     if (invaders.length ==0){
       level ++
-      createInvaders(5+Math.floor(level/2),Math.ceil(level/2) );
+      createInvaders(4+Math.floor(level/3),Math.ceil(level/4) );
+      console.log(invaders.length);
       removebullets();
     }
   }else if (invaders.length ==0){
+    removebullets();
     alert("victory");
   }
 }
@@ -74,7 +76,7 @@ function verloren(){
   if (life === 0 ){
     alert("you lose");
     removeAliens();
-    createInvaders(5,1);
+    createInvaders(4,1);
     removebullets();
     life = 3;
     level = 1;
@@ -83,7 +85,7 @@ function verloren(){
 } 
 function draw() {
   if(start==true){
-  document.getElementById("level").innerHTML = " current level: " + level + " /5";
+  document.getElementById("level").innerHTML = " current level: " + level + " /10";
   document.getElementById("lives").innerHTML = life + " /3 lifes left";
   background(51);
   ship.show();
@@ -98,8 +100,9 @@ function draw() {
     drops[i].move();
     for (var j = 0; j < invaders.length; j++) {
       if (drops[i].hitsenemy(invaders[j])) {
-       if(invaders[j].r===15){
+       if(invaders[j].r===14){
         invaders[j].shrink(5); 
+        invaders[j].color = 'darkblue';
        }else{
         invaders.splice(j , 1);
         levelup();
@@ -111,12 +114,14 @@ function draw() {
 
   for (var i = 0; i < enemydrops.length; i++) {
     enemydrops[i].show('red');
-    enemydrops[i].enemymove();
+    enemydrops[i].enemymove(level);
     verloren();
     if(enemydrops[i].hitsship(ship)){
       ship.color='red';
       life --;
-      enemydrops[i].evaporate();
+      for (var i = 0; i < enemydrops.length; i++) {
+        enemydrops[i].evaporate();
+      }
       setTimeout(function(){ship.color='white';  }, 200);
       }
   }
@@ -158,8 +163,8 @@ function getRandomInt(min, max) {
 function enemyshoot(){
 if (invaders.length > 0){
   let randomenemy = getRandomInt(0,invaders.length-1);
-  let randshoot = getRandomInt(1,5);
-  if (randshoot ===3){
+  let randshoot = getRandomInt(1,2);
+  if (randshoot ===2){
     var drop = new Drop(invaders[randomenemy].x, invaders[randomenemy].y);
     enemydrops.push(drop);
     }
@@ -168,7 +173,7 @@ if (invaders.length > 0){
 
 window.setInterval(function(){
   enemyshoot();
-}, 25 );
+}, 50 );
 
 function keyReleased() {
   if (key != 'f') {
@@ -177,9 +182,7 @@ function keyReleased() {
 }
 function keyPressed() {
   if (key === 'e')  {
-    console.log(invaders.length);
     starting();
-    
   }
   if (key === 'f')  {
     var drop = new Drop(ship.x, height-20);

@@ -1,7 +1,7 @@
 function Drop(x, y) {
   this.x = x;
   this.y = y;
-  this.r = 4;
+  this.r = 3;
   this.toDelete = false;
 
   this.show = function(color) {
@@ -36,8 +36,8 @@ function Drop(x, y) {
     this.y = this.y -5   ;
   }
   
-  this.enemymove = function(){
-    this.y = this.y +5;
+  this.enemymove = function(speed){
+    this.y = this.y + 6 + (speed/5);
     this.r = 5;
   }
   
